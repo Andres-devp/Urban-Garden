@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fases de la Luna — Urban Garden Presentation</title>
+    <meta name="description" content="English 5 Final Presentation — Urban Garden Visit: Fases de la Luna, Bogotá">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ===== RESET ===== */
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg: #07110c;
+            --bg-slide: #0b1a12;
+            --surface: rgba(18, 50, 32, 0.5);
+            --surface-hover: rgba(24, 64, 40, 0.6);
+            --border: rgba(74, 222, 128, 0.1);
+            --border-bright: rgba(74, 222, 128, 0.25);
+            --green-1: #4ade80;
+            --green-2: #22c55e;
+            --green-3: #86efac;
+            --lime: #a3e635;
+            --gold: #fbbf24;
+            --text: #f0fdf4;
+            --text-dim: #bbf7d0;
+            --text-muted: rgba(187, 247, 208, 0.5);
+            --sp-sonia: #f9a8d4;
+            --sp-ana: #c4b5fd;
+            --sp-juan: #93c5fd;
+            --sp-andres: #fcd34d;
+        }
+
+        html, body {
+            height: 100%; width: 100%;
+            overflow: hidden;
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+        }
+
+        /* ===== PRESENTATION FRAME ===== */
+        #deck {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* ===== SLIDE ===== */
+        .slide {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            padding: 48px 72px 72px;
+            opacity: 0;
+            visibility: hidden;
+            overflow: hidden;
+        }
+
+        .slide.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Transition classes */
+        .slide.enter-right  { animation: enterRight  0.7s cubic-bezier(.22,1,.36,1) forwards; }
+        .slide.enter-left   { animation: enterLeft   0.7s cubic-bezier(.22,1,.36,1) forwards; }
+        .slide.exit-right   { animation: exitRight   0.55s cubic-bezier(.55,0,.68,.53) forwards; }
+        .slide.exit-left    { animation: exitLeft    0.55s cubic-bezier(.55,0,.68,.53) forwards; }
+
+        @keyframes enterRight  { from { opacity:0; transform:translateX(80px) scale(.97); } to { opacity:1; transform:translateX(0) scale(1); } }
+        @keyframes enterLeft   { from { opacity:0; transform:translateX(-80px) scale(.97); } to { opacity:1; transform:translateX(0) scale(1); } }
+        @keyframes exitRight   { from { opacity:1; transform:translateX(0) scale(1); } to { opacity:0; transform:translateX(80px) scale(.97); } }
+        @keyframes exitLeft    { from { opacity:1; transform:translateX(0) scale(1); } to { opacity:0; transform:translateX(-80px) scale(.97); } }
+
+        /* Stagger children animations */
+        .slide.active .a1 { animation: fadeUp .55s .05s ease both; }
+        .slide.active .a2 { animation: fadeUp .55s .12s ease both; }
+        .slide.active .a3 { animation: fadeUp .55s .19s ease both; }
+        .slide.active .a4 { animation: fadeUp .55s .26s ease both; }
+        .slide.active .a5 { animation: fadeUp .55s .33s ease both; }
+        .slide.active .a6 { animation: fadeUp .55s .40s ease both; }
+
+        @keyframes fadeUp { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:translateY(0); } }
+        @keyframes scaleIn { from { opacity:0; transform:scale(.92); } to { opacity:1; transform:scale(1); } }
+
+        .slide.active .img-pop { animation: scaleIn .6s .2s ease both; }
+
+        /* ===== BG PATTERNS ===== */
+        .slide::before {
+            content:'';
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .s-title::before  { background: radial-gradient(ellipse at 25% 45%, rgba(34,197,94,.1) 0%, transparent 65%), radial-gradient(ellipse at 80% 20%, rgba(163,230,53,.06) 0%, transparent 55%), var(--bg-slide); }
+        .s-intro::before  { background: radial-gradient(ellipse at 70% 70%, rgba(74,222,128,.08) 0%, transparent 60%), var(--bg-slide); }
+        .s-about::before  { background: radial-gradient(ellipse at 20% 40%, rgba(52,211,153,.08) 0%, transparent 55%), radial-gradient(ellipse at 85% 75%, rgba(251,191,36,.04) 0%, transparent 50%), var(--bg-slide); }
+        .s-obs::before    { background: radial-gradient(ellipse at 65% 30%, rgba(163,230,53,.08) 0%, transparent 55%), var(--bg-slide); }
+        .s-sust::before   { background: radial-gradient(ellipse at 40% 60%, rgba(34,197,94,.1) 0%, transparent 55%), var(--bg-slide); }
+        .s-ben::before    { background: radial-gradient(ellipse at 50% 50%, rgba(251,191,36,.06) 0%, transparent 55%), var(--bg-slide); }
+        .s-end::before    { background: radial-gradient(ellipse at 50% 50%, rgba(74,222,128,.12) 0%, transparent 55%), radial-gradient(ellipse at 20% 80%, rgba(163,230,53,.06) 0%, transparent 50%), var(--bg-slide); }
+
+        .slide > * { position: relative; z-index: 1; }
+
+        /* ===== TYPOGRAPHY ===== */
+        .tag {
+            display: inline-block;
+            font-size: .65rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--green-1);
+            padding: 5px 14px;
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            background: rgba(74,222,128,.05);
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.8rem;
+            font-weight: 800;
+            line-height: 1.05;
+            letter-spacing: -1.5px;
+        }
+
+        h1 .grad {
+            background: linear-gradient(135deg, var(--green-1), var(--lime));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.4rem;
+            font-weight: 700;
+            line-height: 1.15;
+            letter-spacing: -.5px;
+        }
+
+        h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--green-3);
+            margin-bottom: 8px;
+            letter-spacing: .3px;
+        }
+
+        .sub {
+            font-size: 1.05rem;
+            font-weight: 400;
+            color: var(--text-dim);
+            line-height: 1.65;
+            max-width: 560px;
+        }
+
+        .muted { color: var(--text-muted); }
+
+        .line {
+            width: 48px; height: 2.5px;
+            background: linear-gradient(90deg, var(--green-1), var(--lime));
+            border-radius: 2px;
+            margin: 12px 0;
+        }
+
+        .slide-num {
+            position: absolute;
+            top: 24px; right: 36px;
+            font-size: .7rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            letter-spacing: 2px;
+        }
+
+        /* ===== LAYOUTS ===== */
+        .row   { display: flex; gap: 32px; width: 100%; height: 100%; align-items: center; }
+        .col   { display: flex; flex-direction: column; gap: 12px; }
+        .col-1 { flex: 1; }
+        .col-s { flex: .85; }
+        .col-l { flex: 1.15; }
+        .center-col { display: flex; flex-direction: column; align-items: center; text-align: center; width: 100%; height: 100%; justify-content: center; }
+
+        /* Image column — stretches to row height so % children resolve correctly */
+        .col-img {
+            align-self: stretch;
+            overflow: hidden;
+            min-height: 0;
+        }
+
+        /* ===== GLASS CARD ===== */
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 18px 20px;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        /* ===== SPEAKER NOTES (TOGGLEABLE) ===== */
+        .speaker-notes { display: none; }
+        body.show-notes .speaker-notes { display: block; }
+
+        .spk {
+            font-size: .6rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            padding: 3px 10px;
+            border-radius: 100px;
+            margin-bottom: 6px;
+            display: inline-block;
+        }
+
+        .spk-s { background: rgba(249,168,212,.12); color: var(--sp-sonia); border: 1px solid rgba(249,168,212,.2); }
+        .spk-a { background: rgba(196,181,253,.12); color: var(--sp-ana); border: 1px solid rgba(196,181,253,.2); }
+        .spk-j { background: rgba(147,197,253,.12); color: var(--sp-juan); border: 1px solid rgba(147,197,253,.2); }
+        .spk-d { background: rgba(252,211,77,.12); color: var(--sp-andres); border: 1px solid rgba(252,211,77,.2); }
+
+        /* ===== BULLET LIST ===== */
+        .bul { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+        .bul li {
+            display: flex; align-items: flex-start; gap: 10px;
+            font-size: .88rem; color: var(--text-dim); line-height: 1.5;
+        }
+        .bul li .ic {
+            width: 5px; height: 5px;
+            border-radius: 50%;
+            background: var(--green-1);
+            flex-shrink: 0;
+            margin-top: 8px;
+        }
+
+        /* ===== IMAGES ===== */
+        .img-frame {
+            border-radius: 14px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            position: relative;
+            min-height: 0;
+            flex-shrink: 1;
+        }
+
+        .img-frame img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .img-cap {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            padding: 24px 12px 8px;
+            background: linear-gradient(transparent, rgba(0,0,0,.7));
+            font-size: .68rem;
+            font-weight: 500;
+            color: rgba(255,255,255,.85);
+            letter-spacing: .5px;
+        }
+
+        .photo-grid { display: grid; gap: 8px; overflow: hidden; min-height: 0; flex-shrink: 1; }
+        .g2 { grid-template-columns: 1fr 1fr; }
+        .g3 { grid-template-columns: 1fr 1fr 1fr; grid-template-rows: 1fr 1fr; }
+        .g2x2 { grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; }
+
+        .photo-grid .img-frame { min-height: 0; }
+
+        /* ===== STATS ===== */
+        .stats { display: flex; gap: 16px; }
+        .stat {
+            text-align: center;
+            padding: 14px 20px;
+            background: rgba(74,222,128,.04);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            flex: 1;
+        }
+        .stat-n {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--green-1), var(--lime));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .stat-l {
+            font-size: .6rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-top: 2px;
+        }
+
+        /* ===== KEYWORDS ===== */
+        .kw-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+        .kw {
+            font-size: .6rem; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 1.5px;
+            padding: 4px 12px; border-radius: 100px;
+            background: rgba(74,222,128,.06);
+            border: 1px solid var(--border);
+            color: var(--green-1);
+        }
+
+        /* ===== ICON GRID (BENEFITS) ===== */
+        .icon-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .ic-card {
+            display: flex; align-items: flex-start; gap: 10px;
+            padding: 12px 14px;
+            background: rgba(74,222,128,.03);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+        }
+        .ic-card .ic-dot {
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            background: var(--green-1);
+            flex-shrink: 0;
+            margin-top: 5px;
+        }
+        .ic-card h4 { font-size: .82rem; font-weight: 700; color: var(--text); margin-bottom: 2px; }
+        .ic-card p { font-size: .72rem; color: var(--text-muted); line-height: 1.4; }
+
+        /* ===== VIDEO ===== */
+        .vid-wrap {
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            width: 100%;
+            max-width: 680px;
+            aspect-ratio: 16/9;
+            background: #000;
+        }
+        .vid-wrap video { width: 100%; height: 100%; object-fit: cover; }
+
+        /* ===== QUOTE ===== */
+        .quote {
+            padding: 18px 22px 18px 24px;
+            border-left: 2.5px solid var(--green-1);
+            background: rgba(74,222,128,.03);
+            border-radius: 0 12px 12px 0;
+        }
+        .quote p { font-size: .92rem; font-style: italic; color: var(--text-dim); line-height: 1.55; }
+        .quote .qa { font-size: .72rem; font-weight: 600; color: var(--green-1); margin-top: 6px; font-style: normal; }
+
+        /* ===== TEAM ===== */
+        .team-row { display: flex; gap: 20px; }
+        .tm { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+        .tm-av {
+            width: 48px; height: 48px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.1rem; font-weight: 700; color: #fff;
+        }
+        .tm-av.s { background: linear-gradient(135deg, #f472b6, #ec4899); }
+        .tm-av.a { background: linear-gradient(135deg, #c084fc, #a855f7); }
+        .tm-av.j { background: linear-gradient(135deg, #60a5fa, #3b82f6); }
+        .tm-av.d { background: linear-gradient(135deg, #fbbf24, #f59e0b); }
+        .tm-n { font-size: .7rem; font-weight: 600; color: var(--text-dim); }
+
+        /* ===== TWO COL GRID ===== */
+        .two-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; width: 100%; max-width: 1100px; }
+
+        /* ===== NAV BAR ===== */
+        #nav {
+            position: fixed;
+            bottom: 0; left: 0; right: 0;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 36px;
+            background: rgba(7,17,12,.88);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-top: 1px solid var(--border);
+            z-index: 100;
+        }
+
+        .nb {
+            display: flex; align-items: center; gap: 6px;
+            padding: 8px 20px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: rgba(74,222,128,.04);
+            color: var(--text-dim);
+            font-family: 'Inter', sans-serif;
+            font-size: .78rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all .25s ease;
+            letter-spacing: .3px;
+        }
+        .nb:hover { background: rgba(74,222,128,.12); border-color: var(--green-1); color: var(--green-1); }
+        .nb:disabled { opacity: .25; cursor: not-allowed; }
+        .nb:disabled:hover { background: rgba(74,222,128,.04); border-color: var(--border); color: var(--text-dim); }
+
+        #prog { display: flex; align-items: center; gap: 5px; }
+        .pd {
+            width: 7px; height: 7px;
+            border-radius: 50%;
+            background: rgba(74,222,128,.15);
+            transition: all .3s ease;
+            cursor: pointer;
+        }
+        .pd.on { background: var(--green-1); box-shadow: 0 0 10px rgba(74,222,128,.45); width: 22px; border-radius: 4px; }
+        .pd.vis { background: rgba(74,222,128,.4); }
+
+        /* ===== NOTES TOGGLE ===== */
+        #notes-toggle {
+            position: fixed;
+            top: 14px; left: 14px;
+            width: 32px; height: 32px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background: rgba(7,17,12,.6);
+            color: var(--text-muted);
+            font-size: .7rem;
+            cursor: pointer;
+            z-index: 200;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all .25s ease;
+            opacity: .3;
+            backdrop-filter: blur(8px);
+        }
+        #notes-toggle:hover { opacity: 1; border-color: var(--green-1); color: var(--green-1); }
+        body.show-notes #notes-toggle { opacity: .8; background: rgba(74,222,128,.1); color: var(--green-1); border-color: var(--border-bright); }
+
+        /* ===== GENERATED ART DECORATIONS ===== */
+        .decor-banner {
+            position: absolute;
+            bottom: 56px; left: 0; right: 0;
+            height: 80px;
+            overflow: hidden;
+            opacity: .18;
+            z-index: 0;
+        }
+        .decor-banner img { width: 100%; height: 100%; object-fit: cover; }
+
+        /* ===== CONCLUSION SLIDE GROUP PHOTO ===== */
+        .group-photo {
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--border-bright);
+            max-width: 480px;
+            box-shadow: 0 20px 60px rgba(0,0,0,.4);
+        }
+        .group-photo img { width: 100%; display: block; }
+    </style>
+</head>
+<body>
+
+<!-- Notes Toggle Button -->
+<button id="notes-toggle" title="Toggle speaker notes (N)" onclick="document.body.classList.toggle('show-notes')">N</button>
+
+<div id="deck">
+
+    <!-- ===== SLIDE 0: TITLE ===== -->
+    <div class="slide s-title active" data-i="0">
+        <span class="slide-num">01 / 10</span>
+        <div class="center-col">
+            <p class="a1 muted" style="font-size:.75rem; letter-spacing:4px; text-transform:uppercase; font-weight:500;">Pontificia Universidad Javeriana</p>
+            <div class="line a1"></div>
+            <h1 class="a2"><span class="grad">Fases de la Luna</span><br>Urban Garden Visit</h1>
+            <p class="a3 muted" style="font-size:.9rem; letter-spacing:1px; margin-top:4px;">English 5 — Final Speaking Exam</p>
+            <p class="a4 sub" style="margin-top:14px;">An agroecological journey through community, sustainability, and biodiversity in the heart of Bogota.</p>
+            <div class="team-row a5" style="margin-top:24px;">
+                <div class="tm"><div class="tm-av s">S</div><span class="tm-n">Sonia</span></div>
+                <div class="tm"><div class="tm-av a">A</div><span class="tm-n">Ana Maria</span></div>
+                <div class="tm"><div class="tm-av j">J</div><span class="tm-n">Juan</span></div>
+                <div class="tm"><div class="tm-av d">A</div><span class="tm-n">Andres</span></div>
+            </div>
+
+        </div>
+        <div class="decor-banner"><img src="assets/garden_banner.jpg" alt=""></div>
+    </div>
+
+    <!-- ===== SLIDE 1: INTRODUCTION ===== -->
+    <div class="slide s-intro" data-i="1">
+        <span class="slide-num">02 / 10</span>
+        <div class="row">
+            <div class="col col-1">
+                <span class="tag a1">Section 1 — Introduction</span>
+                <h2 class="a2">Welcome to Our<br>Presentation</h2>
+                <div class="line a2"></div>
+
+                <div class="card a3">
+                    <div class="speaker-notes"><span class="spk spk-s">Sonia</span></div>
+                    <ul class="bul">
+                        <li><span class="ic"></span>Welcome to our final presentation for English 5</li>
+                        <li><span class="ic"></span>Our group: Sonia, Ana Maria, Juan &amp; Andres</li>
+                        <li><span class="ic"></span>Topic: Our visit to an urban garden in Bogota</li>
+                    </ul>
+                </div>
+
+                <div class="card a4">
+                    <div class="speaker-notes"><span class="spk spk-a">Ana Maria</span></div>
+                    <ul class="bul">
+                        <li><span class="ic"></span>Urban agriculture works in our city</li>
+                        <li><span class="ic"></span>An incredible experience connecting with nature</li>
+                    </ul>
+                </div>
+
+                <div class="card a5">
+                    <div class="speaker-notes"><span class="spk spk-j">Juan</span> <span class="spk spk-d">Andres</span></div>
+                    <ul class="bul">
+                        <li><span class="ic"></span>Garden name: <strong>"Fases de la Luna"</strong></li>
+                        <li><span class="ic"></span>Supported by the Bogota Botanical Garden</li>
+                        <li><span class="ic"></span>We will cover: history, observations, practices, benefits &amp; reflections</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col col-s col-img" style="gap:10px; justify-content:center;">
+                <div class="img-frame img-pop" style="flex:3;">
+                    <img src="img/c7f48a55-0deb-4ec2-8314-28145aa74524.jpg" alt="Group walking through garden">
+                    <span class="img-cap">Our group exploring the garden</span>
+                </div>
+                <div class="img-frame img-pop" style="flex:2;">
+                    <img src="img/f9751e6c-c103-4da2-973e-61ea4585c7e4.jpg" alt="Bamboo bridge">
+                    <span class="img-cap">Walking through the Botanical Garden</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== SLIDE 2: ABOUT — GENERAL INFO ===== -->
+    <div class="slide s-about" data-i="2">
+        <span class="slide-num">03 / 10</span>
+        <div class="row">
+            <div class="col col-1">
+                <span class="tag a1">Section 2 — About the Garden</span>
+                <h2 class="a2">General Information</h2>
+                <div class="line a2"></div>
+
+                <div class="card a3">
+                    <div class="speaker-notes"><span class="spk spk-s">Sonia</span></div>
+                    <ul class="bul">
+                        <li><span class="ic"></span><strong>Location:</strong> Engativa locality, Bosque Popular</li>
+                        <li><span class="ic"></span><strong>Founded:</strong> June 2023</li>
+                        <li><span class="ic"></span>Part of the 10.4 km <strong>Agroecological Route</strong></li>
+                        <li><span class="ic"></span>Promotes tourism and environmental awareness</li>
+                    </ul>
+                </div>
+
+                <div class="card a4">
+                    <div class="speaker-notes"><span class="spk spk-j">Juan</span></div>
+                    <ul class="bul">
+                        <li><span class="ic"></span>Founded by <strong>Maria de Jesus</strong>, a community leader</li>
+                        <li><span class="ic"></span>Before: an empty, gray lot with garbage</li>
+                        <li><span class="ic"></span>Transformed into a beautiful green space</li>
+                    </ul>
+                </div>
+
+                <div class="stats a5">
+                    <div class="stat"><div class="stat-n">10.4</div><div class="stat-l">KM Route</div></div>
+                    <div class="stat"><div class="stat-n">4</div><div class="stat-l">Gardens</div></div>
+                    <div class="stat"><div class="stat-n">2023</div><div class="stat-l">Founded</div></div>
+                </div>
+            </div>
+            <div class="col col-s col-img" style="gap:10px; justify-content:center;">
+                <div class="img-frame img-pop" style="flex:3;">
+                    <img src="img/WhatsApp Image 2026-07-08 at 7.44.50 PM.jpeg" alt="Panoramic view of crop beds">
+                    <span class="img-cap">Panoramic view of the garden</span>
+                </div>
+                <div class="photo-grid g2 img-pop" style="flex:2;">
+                    <div class="img-frame">
+                        <img src="img/b6bb2b52-f914-4e60-803d-2a8d207ca431.jpg" alt="Organized crop beds">
+                        <span class="img-cap">Crop beds with stone borders</span>
+                    </div>
+                    <div class="img-frame">
+                        <img src="img/a3f40d99-ba55-44a9-a5ff-476750e1b3d4.jpg" alt="Rustic wooden planter">
+                        <span class="img-cap">Creative rustic planter</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== SLIDE 3: PURPOSE & NAME ===== -->
+    <div class="slide s-about" data-i="3">
+        <span class="slide-num">04 / 10</span>
+        <div class="row">
+            <div class="col col-1">
+                <span class="tag a1">Section 2 — Purpose</span>
+                <h2 class="a2">Purpose &amp; Meaning<br>of the Name</h2>
+                <div class="line a2"></div>
+
+                <div class="card a3">
+                    <div class="speaker-notes"><span class="spk spk-d">Andres</span></div>
+                    <h3>The Purpose</h3>
+                    <ul class="bul">
+                        <li><span class="ic"></span>Provide <strong>healthy food</strong> for local families</li>
+                        <li><span class="ic"></span><strong>Protect</strong> native plants and seeds</li>
+                        <li><span class="ic"></span><strong>Teach</strong> children and adults about environmental care</li>
+                    </ul>
+                </div>
+
+                <div class="card a4">
+                    <div class="speaker-notes"><span class="spk spk-a">Ana Maria</span></div>
+                    <h3>Why "Fases de la Luna"?</h3>
+                    <ul class="bul">
+                        <li><span class="ic"></span>They plant following the <strong>lunar cycles</strong></li>
+                        <li><span class="ic"></span>An <strong>ancient tradition</strong> of agriculture</li>
+                        <li><span class="ic"></span>Protects the <strong>biodiversity</strong> of the soil</li>
+                    </ul>
+                </div>
+
+                <div class="kw-row a5">
+                    <span class="kw">Food Security</span>
+                    <span class="kw">Education</span>
+                    <span class="kw">Lunar Cycles</span>
+                    <span class="kw">Agrotourism</span>
+                </div>
+            </div>
+            <div class="col col-1" style="justify-content:center; align-items:center;">
+                <div class="vid-wrap img-pop">
+                    <video autoplay muted loop playsinline>
+                        <source src="video/WhatsApp Video 2026-07-08 at 7.44.48 PM.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <p class="a5 muted" style="font-size:.72rem; margin-top:6px;">Video from our visit to the garden</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== SLIDE 4: OBSERVATIONS — PLANTS ===== -->
+    <div class="slide s-obs" data-i="4">
+        <span class="slide-num">05 / 10</span>
+        <div class="row">
+            <div class="col col-s">
+                <span class="tag a1">Section 3 — Observations</span>
+                <h2 class="a2">Plants &amp; Biodiversity</h2>
+                <div class="line a2"></div>
+
+                <div class="card a3">
+                    <div class="speaker-notes"><span class="spk spk-a">Ana Maria</span></div>
+                    <ul class="bul">
+                        <li><span class="ic"></span>A very big, organized, and colorful space</li>
+                        <li><span class="ic"></span>More than <strong>90 varieties</strong> of plants</li>
+                    </ul>
+                </div>
+                <div class="card a4">
+                    <div class="speaker-notes"><span class="spk spk-d">Andres</span></div>
+                    <ul class="bul">
+                        <li><span class="ic"></span><strong>Vegetables:</strong> lettuce, spinach, broccoli, cabbage</li>
+                        <li><span class="ic"></span><strong>Herbs:</strong> mint, chamomile, rosemary</li>
+                    </ul>
+                </div>
+                <div class="stat a5" style="text-align:center;">
+                    <div class="stat-n">90+</div>
+                    <div class="stat-l">Plant Varieties</div>
+                </div>
+            </div>
+            <div class="col col-l col-img" style="justify-content:center;">
+                <div class="photo-grid g3 img-pop" style="flex:1;">
+                    <div class="img-frame">
+                        <img src="img/dd05cc77-37fc-4b99-b15b-341308b66472.jpg" alt="Lettuce">
+                        <span class="img-cap">Lettuce</span>
+                    </div>
+                    <div class="img-frame">
+                        <img src="img/2fb0d4d6-ab0a-42a8-b864-0071659c36cd.jpg" alt="Rosemary with sign">
+                        <span class="img-cap">Rosemary</span>
+                    </div>
+                    <div class="img-frame">
+                        <img src="img/be6f3c22-8d1c-44d4-ab80-65d36163eba7.jpg" alt="Aromatic herbs">
+                        <span class="img-cap">Aromatic Herbs</span>
+                    </div>
+                    <div class="img-frame">
+                        <img src="img/e22854a4-5794-4630-9369-3e74109da7ba.jpg" alt="Mixed crops with irrigation">
+                        <span class="img-cap">Mixed Crops</span>
+                    </div>
+                    <div class="img-frame">
+                        <img src="img/4c603375-31aa-4ea1-82d3-07535bb8d288.jpg" alt="Calendula flowers">
+                        <span class="img-cap">Calendula Flowers</span>
+                    </div>
+                    <div class="img-frame">
+                        <img src="img/6277a5a2-2f5d-4540-a370-6858a145fe92.jpg" alt="Chamomile">
+                        <span class="img-cap">Chamomile</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== SLIDE 5: OBSERVATIONS — FAUNA ===== -->
+    <div class="slide s-obs" data-i="5">
+        <span class="slide-num">06 / 10</span>
+        <div class="row">
+            <div class="col col-1">
+                <span class="tag a1">Section 3 — Observations</span>
+                <h2 class="a2">Creativity &amp;<br>Local Fauna</h2>
+                <div class="line a2"></div>
+
+                <div class="card a3">
+                    <div class="speaker-notes"><span class="spk spk-s">Sonia</span></div>
+                    <ul class="bul">
+                        <li><span class="ic"></span><strong>Rustic wooden signs</strong> with plant names and benefits</li>
+                        <li><span class="ic"></span><strong>Recycled materials:</strong> plastic bottles and tires for creative pots</li>
+                    </ul>
+                </div>
+
+                <div class="card a4">
+                    <div class="speaker-notes"><span class="spk spk-j">Juan</span></div>
+                    <ul class="bul">
+                        <li><span class="ic"></span>A natural space for <strong>local fauna</strong></li>
+                        <li><span class="ic"></span>We observed <strong>bees, butterflies, and small birds</strong></li>
+                        <li><span class="ic"></span>Essential <strong>pollinators</strong> interacting with flowers</li>
+                    </ul>
+                </div>
+
+                <div class="kw-row a5">
+                    <span class="kw">Bees</span>
+                    <span class="kw">Butterflies</span>
+                    <span class="kw">Birds</span>
+                    <span class="kw">Recycled Materials</span>
+                </div>
+            </div>
+            <div class="col col-1 col-img" style="justify-content:center;">
+                <div class="photo-grid g2x2 img-pop" style="flex:1;">
+                    <div class="img-frame">
+                        <img src="img/0620bbd5-3ab2-481d-b8b7-b3d3001ecbdf.jpg" alt="Bee on flower">
+                        <span class="img-cap">Bee pollinating a flower</span>
+                    </div>
+                    <div class="img-frame">
+                        <img src="img/2b80fd14-3bee-4725-8f87-ba616afc7995.jpg" alt="Allium flower">
+                        <span class="img-cap">Allium flower</span>
+                    </div>
+                    <div class="img-frame">
+                        <img src="img/a3f40d99-ba55-44a9-a5ff-476750e1b3d4.jpg" alt="Wooden planter">
+                        <span class="img-cap">Rustic wooden planter</span>
+                    </div>
+                    <div class="img-frame">
+                        <img src="img/c3165587-d27e-4a2f-a620-cd9e5e710093.jpg" alt="Companion planting">
+                        <span class="img-cap">Companion planting</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== SLIDE 6: SUSTAINABLE PRACTICES ===== -->
+    <div class="slide s-sust" data-i="6">
+        <span class="slide-num">07 / 10</span>
+        <div class="row">
+            <div class="col col-1">
+                <span class="tag a1">Section 4</span>
+                <h2 class="a2">Sustainable<br>Practices</h2>
+                <div class="line a2"></div>
+
+                <div class="card a3">
+                    <div class="speaker-notes"><span class="spk spk-j">Juan</span></div>
+                    <h3>100% Organic Agriculture</h3>
+                    <ul class="bul">
+                        <li><span class="ic"></span><strong>No</strong> chemical pesticides or industrial fertilizers</li>
+                        <li><span class="ic"></span>Protects food production and human health</li>
+                    </ul>
+                </div>
+                <div class="card a4">
+                    <div class="speaker-notes"><span class="spk spk-s">Sonia</span></div>
+                    <h3>Organic Composting</h3>
+                    <ul class="bul">
+                        <li><span class="ic"></span>Fruit peels, vegetable scraps, coffee grounds</li>
+                        <li><span class="ic"></span>Mixed with dry leaves to create natural <strong>fertilizer</strong></li>
+                    </ul>
+                </div>
+                <div class="card a5">
+                    <div class="speaker-notes"><span class="spk spk-a">Ana Maria</span> <span class="spk spk-d">Andres</span></div>
+                    <h3>Water Harvesting &amp; Biodiversity</h3>
+                    <ul class="bul">
+                        <li><span class="ic"></span>Plastic tanks collect <strong>rainwater</strong> from roofs</li>
+                        <li><span class="ic"></span>Healthy soil creates safe environment for <strong>pollinators</strong></li>
+                        <li><span class="ic"></span><strong>Seed conservation:</strong> protect native and free seeds</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col col-s col-img" style="gap:10px; justify-content:center;">
+                <div class="img-frame img-pop" style="flex:2;">
+                    <img src="assets/sustainable_practices.jpg" alt="Sustainable practices illustration">
+                </div>
+                <div class="img-frame img-pop" style="flex:1.5;">
+                    <img src="img/cfcdb04e-601a-4d10-b739-070f661a3b7d.jpg" alt="Students observing crops">
+                    <span class="img-cap">Our team learning about practices</span>
+                </div>
+                <div class="img-frame img-pop" style="flex:1.5;">
+                    <img src="img/f17ab6c2-aebd-42b7-ae6d-05d1fea3bab1.jpg" alt="Students exploring">
+                    <span class="img-cap">Exploring the sustainable garden</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== SLIDE 7: BENEFITS ===== -->
+    <div class="slide s-ben" data-i="7">
+        <span class="slide-num">08 / 10</span>
+        <div class="center-col" style="gap:12px;">
+            <span class="tag a1">Section 5 — Benefits</span>
+            <h2 class="a2">Benefits for Community &amp; Environment</h2>
+            <div class="line a2"></div>
+
+            <div class="two-grid a3" style="margin-top:8px;">
+                <div class="card">
+                    <div class="speaker-notes"><span class="spk spk-d">Andres</span></div>
+                    <h3>For the Environment</h3>
+                    <div class="icon-grid" style="margin-top:8px;">
+                        <div class="ic-card"><span class="ic-dot"></span><div><h4>Clean Air</h4><p>Reduces carbon footprint, purifies air in Engativa</p></div></div>
+                        <div class="ic-card"><span class="ic-dot"></span><div><h4>Biodiversity</h4><p>Attracts bees, butterflies, and hummingbirds</p></div></div>
+                        <div class="ic-card"><span class="ic-dot"></span><div><h4>Waste Reduction</h4><p>Organic recycling through composting</p></div></div>
+                        <div class="ic-card"><span class="ic-dot"></span><div><h4>Green Spaces</h4><p>Transforms gray lots into green havens</p></div></div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="speaker-notes"><span class="spk spk-s">Sonia</span></div>
+                    <h3>For the Community</h3>
+                    <div class="icon-grid" style="margin-top:8px;">
+                        <div class="ic-card"><span class="ic-dot"></span><div><h4>Social Fabric</h4><p>Unites neighbors, reduces loneliness and stress</p></div></div>
+                        <div class="ic-card"><span class="ic-dot"></span><div><h4>Healthy Food</h4><p>Fresh, organic, pesticide-free vegetables</p></div></div>
+                        <div class="ic-card"><span class="ic-dot"></span><div><h4>Education</h4><p>Open-air classroom for children and adults</p></div></div>
+                        <div class="ic-card"><span class="ic-dot"></span><div><h4>Well-being</h4><p>Working together, sharing time, reducing daily stress</p></div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== SLIDE 8: CHALLENGES ===== -->
+    <div class="slide s-ben" data-i="8">
+        <span class="slide-num">09 / 10</span>
+        <div class="row">
+            <div class="col col-1">
+                <span class="tag a1">Section 5 — Critical Thinking</span>
+                <h2 class="a2">Challenges &amp;<br>Suggestions</h2>
+                <div class="line a2"></div>
+
+                <div class="card a3">
+                    <div class="speaker-notes"><span class="spk spk-j">Juan</span></div>
+                    <h3>Challenges</h3>
+                    <ul class="bul">
+                        <li><span class="ic"></span>Heavy <strong>air pollution</strong> from buses and cars can affect crops</li>
+                        <li><span class="ic"></span>Citizens live in <strong>small apartments</strong> — not enough space or time</li>
+                        <li><span class="ic"></span>Limited <strong>funding</strong> for maintenance and expansion</li>
+                    </ul>
+                </div>
+
+                <div class="card a4" style="border-color: rgba(251,191,36,.18);">
+                    <div class="speaker-notes"><span class="spk spk-a">Ana Maria</span></div>
+                    <h3>Our Suggestions</h3>
+                    <ul class="bul">
+                        <li><span class="ic"></span>Teach workshops about <strong>vertical gardens</strong> for small balconies</li>
+                        <li><span class="ic"></span>Use <strong>social media</strong> (TikTok, Instagram) to invite younger students</li>
+                        <li><span class="ic"></span>Create partnerships with <strong>schools and universities</strong></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col col-s col-img" style="gap:14px; justify-content:center;">
+                <div class="img-frame img-pop" style="flex:2;">
+                    <img src="img/b6bb2b52-f914-4e60-803d-2a8d207ca431.jpg" alt="Garden beds">
+                </div>
+                <div class="quote a5" style="flex-shrink:0;">
+                    <p>"Urban gardens face challenges, but they represent hope for healthier, more connected communities."</p>
+                    <span class="qa">— Our group's reflection</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== SLIDE 9: CONCLUSION ===== -->
+    <div class="slide s-end" data-i="9">
+        <span class="slide-num">10 / 10</span>
+        <div class="row" style="gap:40px;">
+            <div class="col col-1" style="justify-content:center;">
+                <span class="tag a1">Section 6 — Conclusion</span>
+                <h2 class="a2">Personal Reflection<br>&amp; Conclusion</h2>
+                <div class="line a2"></div>
+
+                <div class="card a3" style="padding:14px 18px;">
+                    <div class="speaker-notes"><span class="spk spk-s">Sonia</span></div>
+                    <p class="sub" style="max-width:none; font-size:.85rem;">"A beautiful example of love for the community. We do not need a big farm — we only need <strong>cooperation</strong> and a small space."</p>
+                </div>
+                <div class="card a4" style="padding:14px 18px;">
+                    <div class="speaker-notes"><span class="spk spk-a">Ana Maria</span></div>
+                    <p class="sub" style="max-width:none; font-size:.85rem;">"This visit <strong>changed our perspective</strong>. Urban gardens are necessary to build healthier and happier communities."</p>
+                </div>
+                <div class="card a5" style="padding:14px 18px;">
+                    <div class="speaker-notes"><span class="spk spk-j">Juan</span></div>
+                    <p class="sub" style="max-width:none; font-size:.85rem;">"Fases de la Luna is not just a place with plants — it is a center of <strong>education, sustainability, and friendship</strong>."</p>
+                </div>
+                <div class="card a6" style="padding:14px 18px;">
+                    <div class="speaker-notes"><span class="spk spk-d">Andres</span></div>
+                    <p class="sub" style="max-width:none; font-size:.85rem;">"We invite you to <strong>support local huerteros</strong>. Thank you very much for your time and attention!"</p>
+                </div>
+            </div>
+            <div class="col col-s" style="justify-content:center; align-items:center; gap:20px;">
+                <div class="group-photo img-pop">
+                    <img src="img/WhatsApp Image 2026-07-08 at 7.53.40 PM (1).jpeg" alt="Our complete group photo">
+                </div>
+                <div class="a6" style="text-align:center;">
+                    <h2 style="font-size:2rem;"><span class="grad" style="background:linear-gradient(135deg,var(--green-1),var(--lime));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Thank You</span></h2>
+                    <p class="muted" style="font-size:.85rem; margin-top:4px;">We are ready for your questions.</p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- ===== NAVIGATION ===== -->
+<nav id="nav">
+    <button class="nb" id="bp" onclick="go(-1)" disabled>&#8592; Previous</button>
+    <div id="prog"></div>
+    <button class="nb" id="bn" onclick="go(1)">Next &#8594;</button>
+</nav>
+
+<script>
+(function(){
+    const slides = document.querySelectorAll('.slide');
+    const N = slides.length;
+    let cur = 0;
+    let animating = false;
+    const visited = new Set([0]);
+
+    // Build progress
+    const prog = document.getElementById('prog');
+    for(let i=0;i<N;i++){
+        const d = document.createElement('div');
+        d.className = 'pd' + (i===0?' on':'');
+        d.onclick = ()=> goTo(i);
+        prog.appendChild(d);
+    }
+
+    function updateDots(){
+        const dots = prog.children;
+        for(let i=0;i<N;i++){
+            dots[i].className = 'pd' + (i===cur?' on':'') + (visited.has(i)&&i!==cur?' vis':'');
+        }
+        document.getElementById('bp').disabled = cur===0;
+        document.getElementById('bn').disabled = cur===N-1;
+    }
+
+    function goTo(idx){
+        if(idx===cur||idx<0||idx>=N||animating) return;
+        animating = true;
+        const dir = idx > cur ? 1 : -1;
+        const oldEl = slides[cur];
+        const newEl = slides[idx];
+
+        // Remove leftover animation classes
+        oldEl.classList.remove('enter-right','enter-left','exit-right','exit-left');
+        newEl.classList.remove('enter-right','enter-left','exit-right','exit-left');
+
+        // Exit old
+        const exitClass = dir > 0 ? 'exit-left' : 'exit-right';
+        oldEl.classList.add(exitClass);
+
+        // After exit animation, hide old and show new
+        setTimeout(()=>{
+            oldEl.classList.remove('active', exitClass);
+            oldEl.style.visibility = 'hidden';
+            oldEl.style.opacity = '0';
+
+            // Prepare new
+            cur = idx;
+            visited.add(cur);
+            newEl.style.visibility = 'visible';
+            newEl.style.opacity = '1';
+            newEl.classList.add('active');
+            const enterClass = dir > 0 ? 'enter-right' : 'enter-left';
+            newEl.classList.add(enterClass);
+
+            updateDots();
+
+            setTimeout(()=>{
+                newEl.classList.remove(enterClass);
+                animating = false;
+            }, 700);
+        }, 500);
+    }
+
+    window.go = function(delta){ goTo(cur + delta); };
+
+    // Keyboard
+    document.addEventListener('keydown', e => {
+        if(e.key==='ArrowRight'||e.key===' '){ e.preventDefault(); go(1); }
+        else if(e.key==='ArrowLeft'){ e.preventDefault(); go(-1); }
+        else if(e.key==='Home'){ e.preventDefault(); goTo(0); }
+        else if(e.key==='End'){ e.preventDefault(); goTo(N-1); }
+        else if(e.key==='n'||e.key==='N'){ document.body.classList.toggle('show-notes'); }
+    });
+
+    // Update slide numbers
+    slides.forEach((s,i)=>{
+        const num = s.querySelector('.slide-num');
+        if(num) num.textContent = String(i+1).padStart(2,'0')+' / '+String(N).padStart(2,'0');
+    });
+
+    // Init: ensure only first slide visible
+    slides.forEach((s,i)=>{
+        if(i!==0){
+            s.style.visibility = 'hidden';
+            s.style.opacity = '0';
+        }
+    });
+
+    updateDots();
+})();
+</script>
+
+</body>
+</html>
